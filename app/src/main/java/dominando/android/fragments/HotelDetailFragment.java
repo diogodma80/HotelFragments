@@ -1,6 +1,7 @@
 package dominando.android.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +24,11 @@ public class HotelDetailFragment extends Fragment {
     Hotel hotel;
 
     public static HotelDetailFragment newInstance(Hotel hotel) {
-        Bundle params  = new Bundle();
+        Bundle params = new Bundle();
         params.putSerializable(EXTRA_HOTEL, hotel);
 
         HotelDetailFragment fragment = new HotelDetailFragment();
-        fragment.setArguments();
+        fragment.setArguments(params);
         return fragment;
     }
 
@@ -41,16 +42,18 @@ public class HotelDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
         View layout = inflater.inflate(R.layout.fragment_hotel_detail, container, false);
-
+        Log.d("dma", "onCreateView");
         txtName = (TextView) layout.findViewById(R.id.txtName);
         txtAddress = (TextView) layout.findViewById(R.id.txtAddress);
         ratingStar = (RatingBar) layout.findViewById(R.id.rtbStar);
 
         if(hotel != null) {
+            Log.d("dma", hotel.getName());
             txtName.setText(hotel.getName());
+            Log.d("dma", hotel.getAddress());
             txtAddress.setText((hotel.getAddress()));
+            Log.d("dma", Float.valueOf(hotel.getStars()).toString());
             ratingStar.setRating(hotel.getStars());
         }
 
